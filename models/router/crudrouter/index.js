@@ -62,7 +62,7 @@ router.get("/assignget", async (request, response) => {
 });
 
 
-//assignment model put and get
+//assignment model put and delete
 router.put("/assignput/:id", async (req, res) => {
     try {
       const assignment = await Assignment.findByIdAndUpdate(
