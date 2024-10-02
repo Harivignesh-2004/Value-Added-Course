@@ -4,8 +4,6 @@ import Assignment from "../../Assignment.js";
 import Submission from "../../Submission.js";
 const router = Router();
 
-export default router;
-
 //Student Model
 router.post("/student", async (request, response) => {
   try {
@@ -124,3 +122,36 @@ router.get("/subget", async (request, response) => {
     response.send("ERROR");
   }
 });
+
+//Submission model put and delete routes
+
+router.put("/subput/:id", async (req, res) => {
+  try {
+    const submission = await Submission.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    if (!submission)
+      return res.status(404).send({ message: "Submission not found" });
+    res.status(200).send(submission);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.delete("/submitdelete/:id", async (req, res) => {
+  try {
+    const submission = await Submission.findByIdAndDelete(req.params.id);
+    if (!submission)
+      return res.status(404).send({ message: "Submission not found" });
+    res.status(200).send({ message: "Submitted folder deleted successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Error deleting Submission", error });
+  }
+});
+
+export default router;
