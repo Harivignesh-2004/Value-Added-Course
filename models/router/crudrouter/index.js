@@ -60,3 +60,34 @@ router.get("/assignget", async (request, response) => {
     response.send("ERROR");
   }
 });
+
+
+//assignment model put and get
+router.put("/assignput/:id", async (req, res) => {
+    try {
+      const assignment = await Assignment.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+      if (!assignemnt)
+        return res.status(404).send({ message: "Assignment not found" });
+      res.status(200).send(assignment);
+    } catch (error) {
+      res.send(error);
+    }
+  });
+  
+  router.delete("/assigndelete/:id", async (req, res) => {
+    try {
+      const assign2 = await Assignment.findByIdAndDelete(req.params.id);
+      if (!assign2)
+        return res.status(404).send({ message: "Assignment not found" });
+      res.status(200).send({ message: "Assignment deleted successfully" });
+    } catch (error) {
+      res.status(500).send({ message: "Error deleting assignment", error });
+    }
+  });
