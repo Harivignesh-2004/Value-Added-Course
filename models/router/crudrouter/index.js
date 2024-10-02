@@ -1,6 +1,7 @@
 import Router from "express";
 import Student from "../../Student.js";
 import Assignment from "../../Assignment.js";
+import Submission from "../../Submission.js";
 const router = Router();
 
 export default router;
